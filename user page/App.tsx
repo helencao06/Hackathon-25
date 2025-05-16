@@ -5,6 +5,7 @@ function App() {
   const [orbitType, setOrbitType] = useState<'sun-sync' | 'non-polar' | null>(null);
   const [altitude, setAltitude] = useState<string>('');
   const [solarTime, setSolarTime] = useState<string>('');
+  const [inclination, setInclination] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -12,7 +13,8 @@ function App() {
     console.log({
       orbitType,
       altitude,
-      solarTime: orbitType === 'sun-sync' ? solarTime : undefined
+      solarTime: orbitType === 'sun-sync' ? solarTime : undefined,
+      inclination: orbitType === 'non-polar' ? inclination : undefined
     });
   };
 
@@ -72,6 +74,22 @@ function App() {
                   required
                   min="0"
                   max="24"
+                  step="0.1"
+                />
+              </div>
+            )}
+
+            {orbitType === 'non-polar' && (
+              <div className="input-group">
+                <label htmlFor="inclination">Inclination (degrees):</label>
+                <input
+                  type="number"
+                  id="inclination"
+                  value={inclination}
+                  onChange={(e) => setInclination(e.target.value)}
+                  required
+                  min="30"
+                  max="98"
                   step="0.1"
                 />
               </div>
